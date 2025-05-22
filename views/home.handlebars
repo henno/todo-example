@@ -1,0 +1,19 @@
+<div class="todo-container">
+  <button id="add-todo-btn" class="add-todo-btn">Add Todo</button>
+  
+  <div id="add-todo-form-container" class="form-container hidden">
+    <form id="add-todo-form">
+      <input type="text" id="todo-text" name="todoText" placeholder="Enter your todo" required>
+      <button type="submit">Add</button>
+      <button type="button" id="cancel-btn">Cancel</button>
+    </form>
+  </div>
+
+  <ul id="todo-list" class="todo-list">
+    {{#each todos}}
+      <li class="todo-item{{#if completed}} completed{{/if}}" data-id="{{id}}">
+        <span class="todo-text">{{text}}</span>
+      </li>
+    {{/each}}
+  </ul>
+</div>
