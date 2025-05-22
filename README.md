@@ -19,6 +19,9 @@ A simple todo app based on Express and Handlebars.
   - There is text box to filter todo items
   - Typing in the text box filters the todo items
 4. I can delete a todo item
+  - There is a button to delete a todo item
+  - Clicking the button deletes the todo item
+  - I can see the todo item is no longer in the list of todo items
 5. I can view all completed todo items
 6. I can view all incomplete todo items
 

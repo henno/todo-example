@@ -24,11 +24,14 @@
     {{#each todos}}
       <li class="todo-item{{#if completed}} completed{{/if}}" data-id="{{id}}">
         <span class="todo-text">{{text}}</span>
-        {{#if completed}}
-          <button class="incomplete-btn" data-id="{{id}}">Mark as not completed</button>
-        {{else}}
-          <button class="complete-btn" data-id="{{id}}">Complete</button>
-        {{/if}}
+        <div class="todo-actions">
+          {{#if completed}}
+            <button class="incomplete-btn" data-id="{{id}}">Mark as not completed</button>
+          {{else}}
+            <button class="complete-btn" data-id="{{id}}">Complete</button>
+          {{/if}}
+          <button class="delete-btn" data-id="{{id}}">Delete</button>
+        </div>
       </li>
     {{/each}}
   </ul>

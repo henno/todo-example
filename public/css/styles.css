@@ -153,6 +153,11 @@ button[type="button"] {
   flex: 1;
 }
 
+.todo-actions {
+  display: flex;
+  gap: 5px;
+}
+
 .completed .todo-text {
   text-decoration: line-through;
   color: #888;
@@ -164,7 +169,6 @@ button[type="button"] {
   padding: 5px 10px;
   border-radius: 3px;
   font-size: 0.8rem;
-  margin-left: 10px;
 }
 
 .complete-btn:hover {
@@ -177,9 +181,20 @@ button[type="button"] {
   padding: 5px 10px;
   border-radius: 3px;
   font-size: 0.8rem;
-  margin-left: 10px;
 }
 
 .incomplete-btn:hover {
   background-color: #e68a00;
+}
+
+.delete-btn {
+  background-color: #f44336;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 0.8rem;
+}
+
+.delete-btn:hover {
+  background-color: #d32f2f;
 }

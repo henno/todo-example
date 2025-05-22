@@ -42,6 +42,17 @@ class TodoStore {
     return this.todos[todoIndex];
   }
   
+  deleteTodo(id: string): boolean {
+    const todoIndex = this.todos.findIndex(todo => todo.id === id);
+    
+    if (todoIndex === -1) {
+      return false;
+    }
+    
+    this.todos.splice(todoIndex, 1);
+    return true;
+  }
+  
   getCompletedTodos(): Todo[] {
     return this.todos.filter(todo => todo.completed);
   }

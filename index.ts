@@ -66,6 +66,18 @@ app.patch('/api/todos/:id/incomplete', (req, res) => {
   res.json(updatedTodo);
 });
 
+app.delete('/api/todos/:id', (req, res) => {
+  const { id } = req.params;
+  
+  const deleted = todoStore.deleteTodo(id);
+  
+  if (!deleted) {
+    return res.status(404).json({ error: 'Todo not found' });
+  }
+  
+  res.status(204).end();
+});
+
 // Routes for filtering todos
 app.get('/completed', (req, res) => {
   const completedTodos = todoStore.getCompletedTodos();
