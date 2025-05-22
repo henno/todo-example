@@ -15,8 +15,10 @@ A simple todo app based on Express and Handlebars.
   - Clicking the button marks the todo item as completed
   - I can see the todo item in the list of completed todo items
   - I can mark the todo item as not completed
-3. I can delete a todo item
-4. I can view all todo items
+3. I can filter todo items
+  - There is text box to filter todo items
+  - Typing in the text box filters the todo items
+4. I can delete a todo item
 5. I can view all completed todo items
 6. I can view all incomplete todo items
 

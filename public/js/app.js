@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const addTodoForm = document.getElementById('add-todo-form');
   const cancelBtn = document.getElementById('cancel-btn');
   const todoList = document.getElementById('todo-list');
+  const filterInput = document.getElementById('filter-input');
   
   // Function to set up button event listeners
   const setupButtonEventListeners = () => {
@@ -15,6 +16,25 @@ document.addEventListener('DOMContentLoaded', () => {
     // Set up incomplete buttons
     document.querySelectorAll('.incomplete-btn').forEach(button => {
       button.addEventListener('click', handleIncompleteClick);
+    });
+  };
+  
+  // Function to filter todo items
+  const filterTodoItems = (searchText) => {
+    const todoItems = document.querySelectorAll('.todo-item');
+    const searchTerms = searchText.toLowerCase().trim().split(/\s+/);
+    
+    todoItems.forEach(item => {
+      const todoText = item.querySelector('.todo-text').textContent.toLowerCase();
+      
+      // Check if all search terms are present in the todo text
+      const isMatch = searchTerms.every(term => todoText.includes(term));
+      
+      if (isMatch || searchText === '') {
+        item.classList.remove('hidden-by-filter');
+      } else {
+        item.classList.add('hidden-by-filter');
+      }
     });
   };
 
@@ -65,6 +85,11 @@ document.addEventListener('DOMContentLoaded', () => {
       
       // Add event listener to the new complete button
       li.querySelector('.complete-btn').addEventListener('click', handleCompleteClick);
+      
+      // Apply current filter to new item
+      if (filterInput.value.trim() !== '') {
+        filterTodoItems(filterInput.value);
+      }
       
       // Reset and hide the form
       addTodoForm.reset();
@@ -151,6 +176,18 @@ document.addEventListener('DOMContentLoaded', () => {
       alert('Failed to mark todo as not completed. Please try again.');
     }
   }
+  
+  // Set up filter input event listener
+  filterInput.addEventListener('input', (e) => {
+    filterTodoItems(e.target.value);
+  });
+  
+  // Clear filter when navigating between views
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterInput.value = '';
+    });
+  });
   
   // Initialize buttons when page loads
   setupButtonEventListeners();
