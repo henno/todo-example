@@ -26,6 +26,13 @@ header {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
 .add-todo-btn {
   background-color: #4CAF50;
   color: white;
@@ -33,11 +40,29 @@ header {
   padding: 10px 15px;
   border-radius: 4px;
   cursor: pointer;
-  margin-bottom: 20px;
 }
 
 .add-todo-btn:hover {
   background-color: #45a049;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.filter-btn {
+  text-decoration: none;
+  padding: 5px 10px;
+  background-color: #f1f1f1;
+  color: #333;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.filter-btn.active {
+  background-color: #ddd;
+  font-weight: bold;
 }
 
 .form-container {
@@ -103,4 +128,30 @@ button[type="button"] {
 .completed .todo-text {
   text-decoration: line-through;
   color: #888;
+}
+
+.complete-btn {
+  background-color: #2196F3;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 0.8rem;
+  margin-left: 10px;
+}
+
+.complete-btn:hover {
+  background-color: #0b7dda;
+}
+
+.incomplete-btn {
+  background-color: #FF9800;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 0.8rem;
+  margin-left: 10px;
+}
+
+.incomplete-btn:hover {
+  background-color: #e68a00;
 }

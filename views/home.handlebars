@@ -1,5 +1,12 @@
 <div class="todo-container">
-  <button id="add-todo-btn" class="add-todo-btn">Add Todo</button>
+  <div class="nav-container">
+    <button id="add-todo-btn" class="add-todo-btn">Add Todo</button>
+    <div class="filter-buttons">
+      <a href="/" class="filter-btn {{#unless view}}active{{/unless}}">All</a>
+      <a href="/completed" class="filter-btn {{#if (eq view 'completed')}}active{{/if}}">Completed</a>
+      <a href="/incomplete" class="filter-btn {{#if (eq view 'incomplete')}}active{{/if}}">Incomplete</a>
+    </div>
+  </div>
   
   <div id="add-todo-form-container" class="form-container hidden">
     <form id="add-todo-form">
@@ -13,6 +20,11 @@
     {{#each todos}}
       <li class="todo-item{{#if completed}} completed{{/if}}" data-id="{{id}}">
         <span class="todo-text">{{text}}</span>
+        {{#if completed}}
+          <button class="incomplete-btn" data-id="{{id}}">Mark as not completed</button>
+        {{else}}
+          <button class="complete-btn" data-id="{{id}}">Complete</button>
+        {{/if}}
       </li>
     {{/each}}
   </ul>

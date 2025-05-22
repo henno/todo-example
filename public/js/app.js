@@ -4,6 +4,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const addTodoForm = document.getElementById('add-todo-form');
   const cancelBtn = document.getElementById('cancel-btn');
   const todoList = document.getElementById('todo-list');
+  
+  // Function to set up button event listeners
+  const setupButtonEventListeners = () => {
+    // Set up complete buttons
+    document.querySelectorAll('.complete-btn').forEach(button => {
+      button.addEventListener('click', handleCompleteClick);
+    });
+    
+    // Set up incomplete buttons
+    document.querySelectorAll('.incomplete-btn').forEach(button => {
+      button.addEventListener('click', handleIncompleteClick);
+    });
+  };
 
   // Show form when "Add Todo" button is clicked
   addTodoBtn.addEventListener('click', () => {
@@ -44,8 +57,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const li = document.createElement('li');
       li.className = 'todo-item';
       li.dataset.id = newTodo.id;
-      li.innerHTML = `<span class="todo-text">${newTodo.text}</span>`;
+      li.innerHTML = `
+        <span class="todo-text">${newTodo.text}</span>
+        <button class="complete-btn" data-id="${newTodo.id}">Complete</button>
+      `;
       todoList.appendChild(li);
+      
+      // Add event listener to the new complete button
+      li.querySelector('.complete-btn').addEventListener('click', handleCompleteClick);
       
       // Reset and hide the form
       addTodoForm.reset();
@@ -56,4 +75,83 @@ document.addEventListener('DOMContentLoaded', () => {
       alert('Failed to add todo item. Please try again.');
     }
   });
+  
+  // Handle click on complete button
+  async function handleCompleteClick(e) {
+    const button = e.target;
+    const todoId = button.dataset.id;
+    const todoItem = button.closest('.todo-item');
+    
+    try {
+      const response = await fetch(`/api/todos/${todoId}/complete`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to complete todo');
+      }
+      
+      const updatedTodo = await response.json();
+      
+      // Update the UI
+      todoItem.classList.add('completed');
+      button.remove();
+      
+      // Add the incomplete button
+      const incompleteBtn = document.createElement('button');
+      incompleteBtn.className = 'incomplete-btn';
+      incompleteBtn.dataset.id = todoId;
+      incompleteBtn.textContent = 'Mark as not completed';
+      incompleteBtn.addEventListener('click', handleIncompleteClick);
+      todoItem.appendChild(incompleteBtn);
+      
+    } catch (error) {
+      console.error('Error completing todo:', error);
+      alert('Failed to mark todo as completed. Please try again.');
+    }
+  }
+  
+  // Handle click on incomplete button
+  async function handleIncompleteClick(e) {
+    const button = e.target;
+    const todoId = button.dataset.id;
+    const todoItem = button.closest('.todo-item');
+    
+    try {
+      const response = await fetch(`/api/todos/${todoId}/incomplete`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to mark todo as not completed');
+      }
+      
+      const updatedTodo = await response.json();
+      
+      // Update the UI
+      todoItem.classList.remove('completed');
+      button.remove();
+      
+      // Add the complete button
+      const completeBtn = document.createElement('button');
+      completeBtn.className = 'complete-btn';
+      completeBtn.dataset.id = todoId;
+      completeBtn.textContent = 'Complete';
+      completeBtn.addEventListener('click', handleCompleteClick);
+      todoItem.appendChild(completeBtn);
+      
+    } catch (error) {
+      console.error('Error marking todo as not completed:', error);
+      alert('Failed to mark todo as not completed. Please try again.');
+    }
+  }
+  
+  // Initialize buttons when page loads
+  setupButtonEventListeners();
 });

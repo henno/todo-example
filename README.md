@@ -11,6 +11,10 @@ A simple todo app based on Express and Handlebars.
   - Submitting the form adds the todo item to the database
   - I can see the todo item in the list of todo items
 2. I can mark a todo item as completed
+  - There is a button to mark a todo item as completed
+  - Clicking the button marks the todo item as completed
+  - I can see the todo item in the list of completed todo items
+  - I can mark the todo item as not completed
 3. I can delete a todo item
 4. I can view all todo items
 5. I can view all completed todo items
